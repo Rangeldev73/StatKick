@@ -1,0 +1,53 @@
+# ==========================================
+# Build Artifacts & Target Directories (Maven)
+# ==========================================
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# ==========================================
+# Environment Variables & Secret Configuration
+# ==========================================
+# Prevents accidental commits of API keys (e.g., football-data.org token)
+*.env
+*.properties.local
+*.yml.local
+application-dev.yml
+application-local.yml
+
+# ==========================================
+# IDE Specific Files
+# ==========================================
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# Eclipse / STS
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# VS Code & NetBeans
+.vscode/
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+# ==========================================
+# Operating System Files & Local Logs
+# ==========================================
+.DS_Store
+Thumbs.db
+*.log
+*.sqlite
