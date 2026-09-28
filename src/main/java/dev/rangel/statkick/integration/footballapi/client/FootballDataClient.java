@@ -1,6 +1,7 @@
 package dev.rangel.statkick.integration.footballapi.client;
 
 import dev.rangel.statkick.domain.model.Match;
+import dev.rangel.statkick.domain.port.FootballMatchPort;
 import dev.rangel.statkick.integration.footballapi.dto.MatchesResponseDto;
 import dev.rangel.statkick.integration.footballapi.exception.ExternalServiceUnavailableException;
 import dev.rangel.statkick.integration.footballapi.exception.ExternalTimeoutException;
@@ -12,11 +13,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
 import java.time.Duration;
-import java.util.Collections;
 import java.util.List;
 
 @Component
-public class FootballDataClient {
+public class FootballDataClient implements FootballMatchPort {
 
     private final RestClient restClient;
     private final MatchMapper matchMapper;
@@ -26,6 +26,7 @@ public class FootballDataClient {
         this.matchMapper = matchMapper;
     }
 
+    @Override
     public List<Match> fetchMatches(String competitionCode) {
         try {
             MatchesResponseDto response = restClient.get()
@@ -50,7 +51,7 @@ public class FootballDataClient {
                     .body(MatchesResponseDto.class);
 
             if (response == null || response.matches() == null) {
-                return Collections.emptyList();
+                throw new IntegrationException("Invalid payload received from Football API: response or matches list is null");
             }
 
             return response.matches().stream()
