@@ -4,6 +4,7 @@ import dev.rangel.statkick.domain.model.Match;
 import dev.rangel.statkick.domain.model.MatchStatus;
 import dev.rangel.statkick.integration.footballapi.exception.ExternalServiceUnavailableException;
 import dev.rangel.statkick.integration.footballapi.exception.ExternalTimeoutException;
+import dev.rangel.statkick.integration.footballapi.exception.IntegrationException;
 import dev.rangel.statkick.integration.footballapi.exception.RateLimitExceededException;
 import dev.rangel.statkick.integration.footballapi.mapper.MatchMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -135,6 +136,22 @@ class FootballDataClientTest {
 
         assertEquals("Timeout or network error connecting to Football API", exception.getMessage());
 
+        mockServer.verify();
+    }
+
+    @Test
+    @DisplayName("Should throw IntegrationException when response body or matches array is null")
+    void shouldThrowIntegrationExceptionOnNullOrInvalidBody() {
+        mockServer.expect(requestTo(BASE_URL + "/competitions/PL/matches"))
+                .andExpect(header("X-Auth-Token", TOKEN))
+                .andRespond(withSuccess("{}", MediaType.APPLICATION_JSON));
+
+        IntegrationException exception = assertThrows(
+                IntegrationException.class,
+                () -> client.fetchMatches("PL")
+        );
+
+        assertTrue(exception.getMessage().contains("Invalid payload received from Football API"));
         mockServer.verify();
     }
 }

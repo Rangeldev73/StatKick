@@ -21,6 +21,7 @@ application-local.yml
 # ==========================================
 # IntelliJ IDEA
 .idea/
+.run/
 *.iws
 *.iml
 *.ipr
