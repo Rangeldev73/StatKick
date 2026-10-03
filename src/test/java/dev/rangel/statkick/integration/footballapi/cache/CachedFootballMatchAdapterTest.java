@@ -44,7 +44,7 @@ class CachedFootballMatchAdapterTest {
     @Autowired
     private FootballMatchPort cachedAdapter;
 
-    @MockitoBean(name = "footballDataClient")
+    @MockitoBean(name = "resilientFootballMatchAdapter")
     private FootballMatchPort mockClient;
 
     @Autowired
