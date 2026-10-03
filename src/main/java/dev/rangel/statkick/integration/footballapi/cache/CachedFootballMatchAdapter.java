@@ -14,7 +14,7 @@ public class CachedFootballMatchAdapter implements FootballMatchPort {
 
     private final FootballMatchPort delegate;
 
-    public CachedFootballMatchAdapter(@Qualifier("footballDataClient") FootballMatchPort delegate) {
+    public CachedFootballMatchAdapter(@Qualifier("resilientFootballMatchAdapter") FootballMatchPort delegate) {
         this.delegate = delegate;
     }
 
