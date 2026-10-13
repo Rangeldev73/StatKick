@@ -4,7 +4,7 @@ import dev.rangel.statkick.domain.model.Match;
 import dev.rangel.statkick.domain.repository.MatchRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -18,6 +18,14 @@ public class MatchRepositoryAdapter implements MatchRepository {
     public void save(Match match) {
         MatchEntity entity = matchEntityMapper.toEntity(match);
         matchJpaRepository.save(entity);
+    }
+
+    @Override
+    public void saveAll(List<Match> matches) {
+        List<MatchEntity> entities = matches.stream()
+                .map(matchEntityMapper::toEntity)
+                .toList();
+        matchJpaRepository.saveAll(entities);
     }
 
     @Override
