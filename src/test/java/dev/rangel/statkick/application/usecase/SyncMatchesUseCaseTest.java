@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -63,5 +65,15 @@ class SyncMatchesUseCaseTest {
 
         assertThat(persistedTeams).hasSize(3);
         assertThat(persistedMatches).hasSize(2);
+    }
+
+    @Test
+    @DisplayName("Should not call persistence service when matches list is null or empty")
+    void shouldNotPersistWhenMatchesListIsEmptyOrNull() {
+        when(footballMatchPort.fetchMatches("PL")).thenReturn(List.of());
+
+        syncMatchesUseCase.sync("PL");
+
+        verify(matchPersistenceService, never()).saveAtomically(any(), any());
     }
 }
