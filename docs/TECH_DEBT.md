@@ -19,3 +19,7 @@
 5. **Standard error of the holdout**
     * **Reason:** The calculation of the RPS standard error for n=60 was deferred until the core simulation engine is built.
     * **Trigger:** Resolve before starting the backtest with real data.
+
+6. **Opponent strength adjustment (Strength of Schedule)**
+    * **Reason:** The model currently evaluates team strength relative to the league average but does not adjust for the quality of opponents faced. Early in the season, unbalanced schedules can skew the ratings.
+    * **Trigger:** Monitor during backtesting and note the RPS variance. Implement an iterative adjustment (e.g., maximum likelihood estimation) if accuracy degrades heavily in the first 10 matchdays.
