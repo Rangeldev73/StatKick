@@ -31,7 +31,7 @@ class SimulationMatchConverterTest {
     }
 
     @Test
-    @DisplayName("Should discard invalid matches, log a warning, and return clean matches with discard count")
+    @DisplayName("Should discard invalid matches and return clean matches with discard count")
     void shouldDiscardInvalidMatches() {
         Match valid = createMatch(teamHome, teamAway, new Score(2, 1), true, now);
         Match scheduled = createMatch(teamHome, teamAway, new Score(0, 0), false, now);
