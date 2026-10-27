@@ -23,3 +23,7 @@
 6. **Opponent strength adjustment (Strength of Schedule)**
     * **Reason:** The model currently evaluates team strength relative to the league average but does not adjust for the quality of opponents faced. Early in the season, unbalanced schedules can skew the ratings.
     * **Trigger:** Monitor during backtesting and note the RPS variance. Implement an iterative adjustment (e.g., maximum likelihood estimation) if accuracy degrades heavily in the first 10 matchdays.
+
+7. **Global prior for league averages (μ)**
+   * **Reason:** Early in a season, if initial matches yield no goals, `mu` drops to 0, causing `lambda = 0` (predicting 0 goals with 100% probability). A global prior derived from historical seasons must be blended into `TeamStrengthCalculator` to prevent degenerate estimates.
+   * **Trigger:** Resolve before starting the backtest with real data.
