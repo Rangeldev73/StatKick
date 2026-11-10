@@ -19,6 +19,10 @@ public record MatchProbabilities(
         }
     }
 
+    public OutcomeProbabilities toOutcomeProbabilities() {
+        return new OutcomeProbabilities(homeWin, draw, awayWin);
+    }
+
     @Override
     public double[][] scoreMatrix() {
         if (scoreMatrix == null) return null;
@@ -30,7 +34,7 @@ public record MatchProbabilities(
     }
 
     public double getProbability(int homeGoals, int awayGoals) {
-        if (homeGoals < 0 || homeGoals >= scoreMatrix.length || awayGoals < 0 || awayGoals >= scoreMatrix[0].length) {
+        if (scoreMatrix == null || homeGoals < 0 || homeGoals >= scoreMatrix.length || awayGoals < 0 || awayGoals >= scoreMatrix[0].length) {
             return 0.0;
         }
         return scoreMatrix[homeGoals][awayGoals];

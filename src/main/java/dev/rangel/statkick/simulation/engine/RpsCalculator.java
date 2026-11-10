@@ -1,11 +1,11 @@
 package dev.rangel.statkick.simulation.engine;
 
 import dev.rangel.statkick.simulation.model.MatchOutcome;
-import dev.rangel.statkick.simulation.model.MatchProbabilities;
+import dev.rangel.statkick.simulation.model.OutcomeProbabilities;
 
 public class RpsCalculator {
 
-    public double calculate(MatchProbabilities probs, MatchOutcome outcome) {
+    public double calculate(OutcomeProbabilities probs, MatchOutcome outcome) {
         if (probs == null || outcome == null) {
             throw new IllegalArgumentException("Probabilities and outcome cannot be null");
         }
